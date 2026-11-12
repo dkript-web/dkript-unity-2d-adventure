@@ -8,7 +8,8 @@ Este archivo define las directrices obligatorias de desarrollo, calidad de códi
 - **Proyecto:** Curso de desarrollo de videojuegos de plataformas 2D desde cero.
 - **Autoría:** Joel Jonathan Perez Delgado / Dkript.
 - **Audiencia:** Estudiantes y principiantes sin conocimientos previos de programación, Unity ni desarrollo de videojuegos.
-- **Enfoque Pedagógico:** Avance estrictamente incremental por etapas. Cada etapa tiene un único propósito verificable. Se prohíbe anticipar mecánicas de etapas posteriores (no saltar a movimiento, física, combate o animaciones complejas antes de su etapa formal).
+- **Enfoque Pedagógico:** Avance estrictamente incremental por etapas. Cada etapa tiene un único propósito verificable. Se prohíbe anticipar mecánicas o recursos de etapas posteriores (no saltar a movimiento, física, combate o animaciones complejas antes de su etapa formal).
+- **Importación Progresiva de Assets:** Los estudiantes no reciben un proyecto con todos los sprites precargados. Cada etapa enseña desde cero cómo obtener, extraer, importar y configurar únicamente los recursos gráficos que necesita en ese momento. Queda prohibido importar recursos de etapas futuras anticipadamente.
 
 ---
 
@@ -19,7 +20,8 @@ Para garantizar la integridad y el modelo de distribución de Dkript, el ecosist
 1. **Repositorio Público (`dkript-web/dkript-unity-2d-adventure`):**
    - **Propósito:** Alojar exclusivamente el proyecto funcional de Unity en C#, escenas, prefabs, assets necesarios y el `README.md` público con enlaces a los videos en YouTube.
    - **Exclusiones Obligatorias (`.gitignore`):** Queda estrictamente prohibido incluir en este repositorio las carpetas `Docs/`, `Research/`, `VideoScripts/`, `Prompts/` o cualquier material docente, soluciones o instrumentos de evaluación.
-   - **Estrategia de Ramas:** Se utiliza `main` como rama principal estable y ramas dedicadas por hito funcional (`stage/00-setup`, `stage/01-sprites`, `stage/02-tilemaps`, `stage/03-collisions`).
+   - **Estrategia de Ramas:** Se utiliza `main` como rama principal estable y ramas dedicadas por hito funcional (`stage/00-setup`, `stage/01-sprites`, `stage/02-tilemaps`, `stage/03-collisions`, `stage/04-player`, etc.).
+   - **Exclusión de Material Descartado:** No se utilizarán recursos procedentes de Kings and Pigs. El paquete oficial definitivo es *Treasure Hunters* (Pixel Frog, CC0).
 
 2. **Repositorio Privado (`dkript-web/Dkript2DAdventure-Guides`):**
    - **Propósito:** Alojar las guías completas para estudiantes (`01_StudentGuide.md`), guías metodológicas para docentes (`02_TeacherGuide.md`), protocolos de troubleshooting (`03_Troubleshooting.md`), prácticas y rúbricas (`04_Practice.md`), soluciones docentes (`05_TeacherSolutions.md`), informes de validación (`06_Validation.md`), registros de etapa (`07_StageRecord.md`) e ilustraciones/assets pedagógicos complementarios.
@@ -35,6 +37,7 @@ Para garantizar la integridad y el modelo de distribución de Dkript, el ecosist
 3. Inspeccionar `git status` y `git diff --cached` para garantizar cero filtraciones de documentación privada al repositorio público.
 4. Confirmar que no se incluya un proyecto de Unity en el repositorio privado de guías.
 5. Verificar que las referencias entre guías, ramas y videos sean exactas y consistentes.
+6. Verificar que cada etapa incorpore únicamente los assets autorizados para su hito.
 
 ---
 
@@ -59,19 +62,31 @@ Para garantizar la integridad y el modelo de distribución de Dkript, el ecosist
 
 ---
 
-## 5. Estructura de Directorios del Proyecto
-Todo el contenido propio del proyecto debe residir dentro de `Assets/_Project/` para aislarlo de los recursos predeterminados de Unity o de paquetes de terceros:
-- `Assets/_Project/Scenes/`: Escenas de trabajo ordenadas por etapa.
-- `Assets/_Project/Scripts/`: Lógica de programación (subdividida por módulos: `Core`, `Player`, `Environment`, etc.).
-- `Assets/_Project/Sprites/`: Arte gráfico y texturas 2D.
-- `Assets/_Project/Animations/`: Controladores de animación y clips.
-- `Assets/_Project/Prefabs/`: Plantillas de GameObjects reutilizables.
-- `Assets/_Project/Audio/`: Efectos de sonido y música.
-- `Assets/_Project/UI/`: Elementos de interfaz de usuario.
-- `Docs/`: Documentación local del curso (ignorada por Git en este repositorio).
-- `Prompts/`: Archivo histórico de prompts pedagógicos (ignorado por Git).
-- `VideoScripts/`: Escaletas y guiones de video formativos (ignorado por Git).
-- `Research/`: Materiales de investigación técnica local (ignorado por Git).
+## 5. Estructura de Directorios del Proyecto y Organización Progresiva
+Todo el contenido propio del proyecto debe residir dentro de `Assets/_Project/` para aislarlo de los recursos predeterminados de Unity o de paquetes de terceros.
+
+### Regla Principal de Organización Progresiva:
+**Ninguna carpeta, componente o herramienta debe utilizarse o crearse sin explicar primero su propósito.**
+No se crean anticipadamente carpetas de etapas futuras. La estructura se expande exclusivamente cuando la lección lo exige:
+- **Stage00:** `Scenes/`, `Scripts/Core/`
+- **Stage01:** `Sprites/Background/`
+- **Stage02:** `Sprites/Terrain/`, `Tilemaps/`
+- **Stage03:** Reutiliza estructura existente
+- **Stage04:** `Sprites/Characters/` (o `Player/`)
+- **Stage05:** Reutiliza scripts y recursos existentes
+- **Stage06:** Introduce solo carpetas justificadas
+- **Stage07:** `Animations/`, `Animators/`
+- **Etapas posteriores:** `Prefabs/`, `Audio/`, `UI/` y demás recursos progresivos.
+
+### Estructura Didáctica Obligatoria (7 Preguntas Clave):
+Cada vez que se introduzca una carpeta, componente o herramienta de Unity, se debe responder didácticamente:
+1. **¿Qué es?** (Definición sencilla).
+2. **¿Para qué sirve?** (Función dentro de Unity).
+3. **¿Por qué la necesitamos?** (Problema de organización que resuelve).
+4. **¿Cómo se crea?** (Instrucciones detalladas desde la ventana Project).
+5. **¿Qué archivos contendrá?** (Tipos y ejemplos de archivos).
+6. **¿Cómo verificamos su creación?** (Comprobación visible en el editor).
+7. **¿Qué errores debemos evitar?** (Duplicaciones, rutas incorrectas, nombres mal escritos).
 
 ---
 
